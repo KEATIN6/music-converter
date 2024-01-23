@@ -1,6 +1,6 @@
 # Music Converter
 
-Change song audio file types to mp3 
+Change song audio file types to **mp3**.
 
 
 ### Expected user inputs
