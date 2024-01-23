@@ -1,5 +1,5 @@
-#Music Converter
-##Change audio file types to mp3 
+# Music Converter
+## Change audio file types to mp3 
 
 The exepected paths should follow the structure below:
 [Music Directory] / [Artist] / [Album] / [Songs]
