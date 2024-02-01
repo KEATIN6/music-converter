@@ -96,35 +96,36 @@ class MusicConverter(MusicNavigator):
         if file_type:
             self.run(file_type)
 
-    def convert_m4a_to_mp3(self, input_file, output_file) -> bool:
-        if input_file.endswith('.m4a'):
+    def convert_file_to_mp3(self, input_file, output_file, file_type) -> bool:
+        if input_file.endswith(file_type):
             try:
-                audio = AudioSegment.from_file(input_file, format="m4a")
+                audio = AudioSegment.from_file(
+                    input_file, format=file_type.replace('.',''))
                 audio.export(output_file, format="mp3")
                 return True
-            except:
-                pass
+            except Exception as e:
+                print(e)
         return False
 
-    def convert_all_songs(self, songs):
+    def convert_all_songs(self, songs, file_type):
         for song in songs:
             self.check_output_path_exists(
                 song.artist_folder, song.albumn_folder
             )
             print(song.song_file)
             input_file = song.get_path(MUSIC_PATH)
-            output_file = song.get_path(OUTPUT_PATH).replace('.m4a', '.mp3')
-            if self.convert_m4a_to_mp3(input_file, output_file):
+            output_file = song.get_path(OUTPUT_PATH).replace(file_type, '.mp3')
+            if self.convert_file_to_mp3(input_file, output_file, file_type):
                 print("Converted to MP3")
         
     def run(self, file_type) -> bool:
         songs = self.search_directory_by_type(file_type)
-        self.convert_all_songs(songs)
+        self.convert_all_songs(songs, file_type)
         return True
 
 # %%
 
 if __name__ == '__main__':
-    converter = MusicConverter(MUSIC_PATH, OUTPUT_PATH, '.m4a')
+    converter = MusicConverter(MUSIC_PATH, OUTPUT_PATH, '.flac')
 
 # %%
